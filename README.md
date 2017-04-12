@@ -1,5 +1,7 @@
 # feathers-typescript
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/feathersjs/feathers-typescript.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/feathersjs/feathers-typescript.png?branch=master)](https://travis-ci.org/feathersjs/feathers-typescript)
 [![Code Climate](https://codeclimate.com/github/feathersjs/feathers-typescript/badges/gpa.svg)](https://codeclimate.com/github/feathersjs/feathers-typescript)
 [![Test Coverage](https://codeclimate.com/github/feathersjs/feathers-typescript/badges/coverage.svg)](https://codeclimate.com/github/feathersjs/feathers-typescript/coverage)
