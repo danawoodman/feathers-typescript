@@ -1,92 +1,91 @@
-import * as express from 'express';
-import * as expressCore from "express-serve-static-core";
 import * as events from 'events';
 
 declare function feathers(): feathers.Application;
 
 declare namespace feathers {
-  export var static: typeof express.static;
- 
   type NullableId = number | string | null;
 
   interface Params {
     query?: any;
+    paginate?: false | object;
   }
-  
+
   interface Pagination <T> {
     total: Number,
     limit: Number,
     skip: Number,
-    data: T
+    data: T[]
   }
 
-  interface Service<T> extends events.EventEmitter {
-
-    /**
-     * Retrieves a list of all resources from the service.
-     * Provider parameters will be passed as params.query
-     */
-    find(params?: Params, callback?: any): Promise<T[] | Pagination<T>>;
-
-    /**
-     * Retrieves a single resource with the given id from the service.
-     */
-    get(id: number | string, params?: Params, callback?: any): Promise<T>;
-
-    /**
-     * Creates a new resource with data. 
-     */
-    create(data: T | T[], params?: Params, callback?: any): Promise<T | T[]>;
-
-    /**
-     * Replaces the resource identified by id with data.
-     * Update multiples resources with id equal `null` 
-     */
-    update(id: NullableId, data: T, params?: Params, callback?: any): Promise<T>;
-
-    /**
-     * Merges the existing data of the resource identified by id with the new data.
-     * Implement patch additionally to update if you want to separate between partial and full updates and support the PATCH HTTP method.
-     * Patch multiples resources with id equal `null`
-     */
-    patch(id: NullableId, data: any, params?: Params, callback?: any): Promise<T>;
-
-    /**
-     * Removes the resource with id.
-     * Delete multiple resources with id equal `null`
-     */
-    remove(id: NullableId, params?: Params, callback?: any): Promise<T>;
-
-    /**
-     * Initialize your service with any special configuration or if connecting services that are very tightly coupled 
-     */
-    setup(app?: Application, path?: string): void;
+  interface Hook {
+    <T>(hook: HookContext<T>): Promise<any> | void;
   }
 
-  interface FeathersUseHandler<T> extends expressCore.IRouterHandler<T>, express.IRouterMatcher<T> {
-    (location: string, service: Service<any>): T
+  interface HookContext<T> {
+    app?: feathers.Application;
+    data?: T;
+    error?: any;
+    id?: string | number;
+    method?: string;
+    params?: any;
+    path?: string;
+    result?: T;
+    service: feathers.Service<T>;
+    type: 'before' | 'after' | 'error';
   }
 
-  interface Application extends express.Application {
-    /**
-     * It either returns the Feathers wrapped service object for the given path
-     */
-    service<T>(location: string): Service<T>;
+  interface HookMap {
+    all?: Hook | Hook[];
+    find?: Hook | Hook[];
+    get?: Hook | Hook[];
+    create?: Hook | Hook[];
+    update?: Hook | Hook[];
+    patch?: Hook | Hook[];
+    remove?: Hook | Hook[];
+  }
 
-    /**
-     * Registers a new service for that path and returns the wrapped service object 
-     */
-    service<T>(location: string, service: Service<T>, options?: any): Service<T>;
+  interface HooksObject {
+    before?: HookMap;
+    after?: HookMap;
+    error?: HookMap;
+  }
 
-    /**
-     *  Initialize all services by calling each services .setup(app, path) method (if available)
-     */
-    setup(): this;
+  interface Channel {
+    join(...connections: any[]): this;
+    leave(...connections: any[]): this;
+    filter(callback: (connection: any): boolean): Channel;
+    send(data: any): this;
+  }
 
-    /**
-     * Register a service object 
-     */
-    use: FeathersUseHandler<this>;
+  interface Service<T> {
+    find?(params?: Params): Promise<T[] | Pagination<T>>;
+    get?(id: number | string, params?: Params): Promise<T>;
+    create?(data: T[], params?: Params): Promise<T[]>;
+    create?(data: T , params?: Params): Promise<T>;
+    update?(id: NullableId, data: T, params?: Params): Promise<T>;
+    patch?(id: NullableId, data: any, params?: Params): Promise<T>;
+    remove?(id: NullableId, params?: Params): Promise<T>;
+    setup?(app?: Application, path?: string): void;
+  }
+
+  interface FeathersService<T> extends Service<T>, events.EventEmitter {
+    hooks(hooks: HooksObject): Application;
+    publish<T>(event?: string, callback: (data: T, hook: HookContext<T>) => Channel)
+  }
+
+  interface Application {
+    get(name: string);
+    set(name: string, value: any);
+    disable(name: string);
+    disabled(name: string);
+    enable(name: string);
+    enabled(name: string);
+    configure(callback: (app: Application) => void): this;
+    setup(server?: any): this;
+    service<T>(location: string): FeathersService<T>;
+    use<T>(path: string, service: Service<T> | Application, options?: any): this;
+    channel(...names: string[]): Channel;
+    publish<T>(event?: string, callback: (data: T, hook: HookContext<T>) => Channel | Channel[]);
   }
 }
 
