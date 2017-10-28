@@ -92,7 +92,7 @@ declare module '@feathersjs/feathers' {
 
   type Service<T, DataTypes = {}> = ServiceCore<T> & ServiceAddons<T, DataTypes> & ServiceOverloads<T>;
 
-  interface Application<DataTypes> {
+  interface Application<DataTypes> extends EventEmitter {
     get(name: string): any;
 
     set(name: string, value: any): this;
