@@ -1,0 +1,48 @@
+{
+  "name": "feathers-typings-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/feathersjs/feathers-typescript.git",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@feathersjs/feathers": "^3.0.0-pre.3",
+    "@feathers-types/primus-client": "^1.0.0",
+    "@feathers-types/socket-commons": "^1.0.0",
+    "@feathers-types/socketio": "^1.0.0",
+    "@feathers-types/authentication-client": "^1.0.0",
+    "@feathers-types/express": "^1.0.0",
+    "@feathers-types/primus": "^1.0.0",
+    "@feathers-types/authentication-oauth2": "^1.0.0",
+    "@feathers-types/authentication": "^1.0.0",
+    "@feathers-types/authentication-local": "^1.0.0",
+    "@feathers-types/errors": "^1.0.0",
+    "@feathers-types/authentication-jwt": "^1.0.0",
+    "@feathers-types/configuration": "^1.0.0",
+    "@feathers-types/authentication-oauth1": "^1.0.0",
+    "@feathers-types/feathers": "^1.0.0",
+    "@feathers-types/rest-client": "^1.0.0",
+    "@feathers-types/socketio-client": "^1.0.0"
+  },
+  "devDependencies": {
+    "lerna": "^2.2.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.5.3"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+{
+	"name": "_placeholder_",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/feathersjs/feathers-typescript.git",
+	"author": "Jan Lohage <git@j2L4e.de>",
+	"license": "MIT"
+}
