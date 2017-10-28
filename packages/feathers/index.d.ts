@@ -5,6 +5,19 @@ declare module '@feathersjs/feathers' {
 
   function feathers<DataTypes = {}>(): Application<DataTypes>;
 
+  namespace _utils {
+    // Mainly taken from here https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-319495340
+
+    type StringDiff<T extends string, U extends string> = ({[K in T]: K} &
+      {[K in U]: never} & {[K: string]: never})[T];
+    type ObjectOmit<T, K extends keyof T> = Pick<T, StringDiff<keyof T, K>>;
+
+    export type Optionalize<T, U> = ObjectOmit<T, U & keyof T> &
+      {[K in (U & keyof T)]?: T[K]};
+  }
+
+  type OptionalIDs<T> = _utils.Optionalize<T, 'id' | '_id'>
+
   type Id = number | string;
   type NullableId = Id | null;
   type Connection = any; // todo: spec connection
@@ -73,7 +86,7 @@ declare module '@feathersjs/feathers' {
   interface ServiceCore<T> {
     find?(params?: Params): Promise<T[] | Paginated<T>>;
     get?(id: Id, params?: Params): Promise<T>;
-    create?(data: T | T[], params?: Params): Promise<T | T[]>
+    create?(data: OptionalIDs<T> | OptionalIDs<T>[], params?: Params): Promise<T | T[]>
     update?(id: NullableId, data: T, params?: Params): Promise<T>;
     patch?(id: NullableId, data: Partial<T>, params?: any): Promise<T>;
     remove?(id: NullableId, params?: Params): Promise<T>;
@@ -81,8 +94,8 @@ declare module '@feathersjs/feathers' {
   }
 
   interface ServiceOverloads<T> {
-    create(data: T[], params?: Params): Promise<T[]>;
-    create(data: T, params?: Params): Promise<T>;
+    create(data: OptionalIDs<T>[], params?: Params): Promise<T[]>;
+    create(data: OptionalIDs<T>, params?: Params): Promise<T>;
     patch<K extends keyof T>(id: NullableId, data: Pick<T, K>, params?: any): Promise<T>;
   }
 
