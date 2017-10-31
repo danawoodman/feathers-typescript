@@ -3,7 +3,7 @@
 declare module '@feathersjs/feathers' {
   import { EventEmitter } from 'events';
 
-  function feathers<DataTypes = {}>(): Application<DataTypes>;
+  export default function <DataTypes = {}>(): Application<DataTypes>;
 
   namespace _utils {
     // Mainly taken from here https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-319495340
@@ -20,7 +20,6 @@ declare module '@feathersjs/feathers' {
 
   type Id = number | string;
   type NullableId = Id | null;
-  type Connection = any; // todo: spec connection
   type Query = { [key: string]: any };
 
   interface PaginationOptions {
@@ -74,13 +73,6 @@ declare module '@feathersjs/feathers' {
     before: Partial<HookMap>;
     after: Partial<HookMap>;
     error: Partial<HookMap>;
-  }
-
-  interface Channel {
-    join(...connections: Connection[]): this;
-    leave(...connections: Connection[]): this;
-    filter(callback: (connection: Connection) => boolean): Channel;
-    send(data: any): this;
   }
 
   interface ServiceCore<T> {

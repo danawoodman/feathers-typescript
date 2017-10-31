@@ -1,12 +1,8 @@
-import {
-  IPrimusOptions,
-  Primus
-} from 'primus';
-
 declare module '@feathersjs/primus' {
-  export = FeathersPrimusStatic;
-}
+  import {
+    IPrimusOptions,
+    Primus
+  } from 'primus';
 
-interface FeathersPrimusStatic {
-  (options: IPrimusOptions, callback?: (primus: Primus) => void): () => void
+  export default function (options: IPrimusOptions, callback?: (primus: Primus) => void): () => void
 }

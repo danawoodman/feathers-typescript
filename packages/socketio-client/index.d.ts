@@ -1,13 +1,9 @@
 ///<reference types="socket.io-client" />
 
 declare module '@feathersjs/socketio/client' {
-  export = FeathersSocketIOClientStatic;
-}
+  export default function(socket: SocketIOClient.Socket, options?: FeathersSocketIOClientOptions): () => void
 
-interface FeathersSocketIOClientStatic {
-  (socket: SocketIOClient.Socket, options?: FeathersSocketIOClientOptions): () => void
-}
-
-interface FeathersSocketIOClientOptions {
-  timeout?: number
+  interface FeathersSocketIOClientOptions {
+    timeout?: number
+  }
 }

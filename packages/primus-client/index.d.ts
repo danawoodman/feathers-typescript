@@ -1,13 +1,10 @@
-import { Primus } from 'primus';
-
 declare module '@feathersjs/primus/client' {
-  export = FeathersPrimusClientStatic;
+  import { Primus } from 'primus';
+
+  export default function (socket: Primus, options?: FeathersPrimusClientOptions): () => void
+
+  interface FeathersPrimusClientOptions {
+    timeout?: number;
+  }
 }
 
-interface FeathersPrimusClientStatic {
-  (socket: Primus, options?: FeathersPrimusClientOptions): () => void
-}
-
-interface FeathersPrimusClientOptions {
-  timeout?: number;
-}
