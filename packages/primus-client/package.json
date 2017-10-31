@@ -6,5 +6,6 @@
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
+		"primus": "^7.1.0"
 	}
 }
