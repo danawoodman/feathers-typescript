@@ -6,5 +6,6 @@
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
+		"@feathers-types/feathers": "^1.0.0"
 	}
 }
