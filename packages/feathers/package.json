@@ -1,19 +1,14 @@
 {
-  "name": "@feathers-types/feathers",
+  "name": "@types/feathersjs__feathers",
   "version": "1.0.0",
   "main": "",
   "repository": "https://github.com/feathersjs/feathers-typescript.git",
   "author": "",
   "license": "MIT",
-  "devDependencies": {
-  },
   "dependencies": {
     "@types/node": "^8.0.47"
   },
   "types": [
-    "index.d.ts"
-  ],
-  "scripts": {
-
-  }
+    "./index.d.ts"
+  ]
 }

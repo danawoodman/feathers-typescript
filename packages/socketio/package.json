@@ -1,5 +1,5 @@
 {
-	"name": "@feathers-types/socketio",
+	"name": "@types/feathersjs__socketio",
 	"version": "1.0.0",
 	"main": "index.js",
 	"repository": "https://github.com/feathersjs/feathers-typescript.git",

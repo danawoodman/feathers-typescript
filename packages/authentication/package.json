@@ -1,5 +1,5 @@
 {
-	"name": "@feathers-types/authentication",
+	"name": "@types/feathersjs__authentication",
 	"version": "1.0.0",
 	"main": "index.js",
 	"repository": "https://github.com/feathersjs/feathers-typescript.git",

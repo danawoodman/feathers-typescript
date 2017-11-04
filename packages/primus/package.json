@@ -1,5 +1,5 @@
 {
-	"name": "@feathers-types/primus",
+	"name": "@types/feathersjs__primus",
 	"version": "1.0.0",
 	"main": "index.js",
 	"repository": "https://github.com/feathersjs/feathers-typescript.git",

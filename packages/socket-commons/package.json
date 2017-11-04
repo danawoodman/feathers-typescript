@@ -1,5 +1,5 @@
 {
-	"name": "@feathers-types/socket-commons",
+	"name": "@types/feathersjs__socket-commons",
 	"version": "1.0.0",
 	"main": "index.js",
 	"repository": "https://github.com/feathersjs/feathers-typescript.git",
