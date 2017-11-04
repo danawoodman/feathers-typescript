@@ -1,13 +1,9 @@
 declare module '@feathersjs/authentication-jwt' {
   import { Application } from '@feathersjs/feathers';
-  import {
-    JwtFromRequestFunction,
-    VerifyCallbackWithRequest
-  } from 'passport-jwt';
-
-  export { ExtractJwt } from 'passport-jwt';
+  import { Request } from 'express';
 
   function feathersAuthenticationJwt(options?: FeathersAuthenticationJWTOptions): () => void
+
   export default feathersAuthenticationJwt;
 
   export interface FeathersAuthenticationJWTOptions {
@@ -18,14 +14,31 @@ declare module '@feathersjs/authentication-jwt' {
     jwtFromRequest: JwtFromRequestFunction, // a passport-jwt option determining where to parse the JWT
     secretOrKey: string, // Your main secret provided to passport-jwt
     session: boolean // whether to use sessions,
-    Verifier: Verifier // A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
+    Verifier: JWTVerifier // A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
   }
 
-  export class Verifier {
+  export class JWTVerifier {
     constructor(app: Application<any>, options: any) // the class constructor
 
-    verify: VerifyCallbackWithRequest;
+    verify(req: Request, payload: any, done: (error: any, user?: any, info?: any) => void): void;
   }
 
-  export class DefaultVerifier extends Verifier {}
+  interface JwtFromRequestFunction {
+    (req: Request): string
+  }
+
+  export const ExtractJWT: {
+    fromHeader(header_name: string): JwtFromRequestFunction;
+    fromBodyField(field_name: string): JwtFromRequestFunction;
+    fromUrlQueryParameter(param_name: string): JwtFromRequestFunction;
+    fromAuthHeaderWithScheme(auth_scheme: string): JwtFromRequestFunction;
+    fromAuthHeader(): JwtFromRequestFunction;
+    fromExtractors(extractors: JwtFromRequestFunction[]): JwtFromRequestFunction;
+    fromAuthHeaderAsBearerToken(): JwtFromRequestFunction;
+  };
+
+  export const defaults: {
+    name: string;
+    bodyKey: string;
+  };
 }

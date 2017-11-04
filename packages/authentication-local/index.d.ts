@@ -3,8 +3,8 @@ declare module '@feathersjs/authentication-local' {
     Application,
     Hook
   } from '@feathersjs/feathers';
-  import { VerifyFunctionWithRequest } from 'passport-local';
   import { Paginated } from '@feathersjs/feathers';
+  import { Request } from 'express';
 
   function feathersAuthenticationLocal(options?: FeathersAuthenticationLocalOptions): () => void
   export default feathersAuthenticationLocal;
@@ -27,7 +27,7 @@ declare module '@feathersjs/authentication-local' {
 
     _comparePassword<T>(entity: T, password: string): Promise<T> // compares password using bcrypt
     _normalizeResult<T>(results: T[] | Paginated<T>): Promise<T> // normalizes result from service to account for pagination
-    verify: VerifyFunctionWithRequest;
+    verify(req: Request, username: string, password: string, done: (error: any, user?: any, options?: { message : string }) => void): void
   }
 
   export namespace hooks {
@@ -35,9 +35,9 @@ declare module '@feathersjs/authentication-local' {
     function protect(...fields: string[]): Hook;
   }
 
-  export namespace defaults {
-    const name: string;
-    const usernameField: string;
-    const passwordField: string;
+  export const defaults: {
+    name: string;
+    usernameField: string;
+    passwordField: string;
   }
 }

@@ -5,8 +5,7 @@
 	"repository": "https://github.com/feathersjs/feathers-typescript.git",
 	"author": "",
 	"license": "MIT",
-	"devDependencies": {},
-	"dependencies": {
+	"devDependencies": {
 		"@types/express": "^4.0.39"
 	}
 }

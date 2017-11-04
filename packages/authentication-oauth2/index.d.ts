@@ -3,7 +3,7 @@ declare module '@feathersjs/authentication-oauth2' {
     Application,
     Paginated
   } from '@feathersjs/feathers';
-  import { VerifyFunctionWithRequest } from 'passport-oauth2';
+  import { Request } from 'express';
 
   function feathersAuthenticationOAuth2(options?: FeathersAuthenticationOAuth2Options): () => void
 
@@ -23,7 +23,6 @@ declare module '@feathersjs/authentication-oauth2' {
     handler: Function , // Express middleware for handling the oauth callback. Defaults to the built in middleware. todo: needs a proper type
     formatter: Function , // The response formatter. Defaults the the built in feathers-rest formatter, which returns JSON. todo: needs a proper type
     Verifier: OAuth2Verifier // A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
-
   }
 
   export class OAuth2Verifier {
@@ -32,6 +31,6 @@ declare module '@feathersjs/authentication-oauth2' {
     _updateEntity<T>(entity: T, data: { profile: any, accessToken: string, refreshToken: string }): Promise<any>; // updates an existing entity
     _createEntity(data: { profile: any, accessToken: string, refreshToken: string }): Promise<any>; // creates an entity if they didn't exist already
     _normalizeResult<T>(results: T[] | Paginated<T>): Promise<T>  // normalizes result from service to account for pagination
-    verify: VerifyFunctionWithRequest; // queries the service and calls the other internal functions.
+    verify(req: Request, accessToken: string, refreshToken: string, profile: any, done: (err: Error | null, user: object, info: object) => void): void; // queries the service and calls the other internal functions.
   }
 }

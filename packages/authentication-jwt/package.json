@@ -5,8 +5,7 @@
 	"repository": "https://github.com/feathersjs/feathers-typescript.git",
 	"author": "",
 	"license": "MIT",
-	"devDependencies": {},
-	"dependencies": {
-		"@types/passport-jwt": "^3.0.0"
+	"devDependencies": {
+		"@types/express": "^4.0.39"
 	}
 }
