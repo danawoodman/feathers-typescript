@@ -1,3 +1,8 @@
+// Type definitions for @feathersjs/authentication
+// Project: http://feathersjs.com/
+// Definitions by: Abraao Alves <https://github.com/AbraaoAlves/>, Jan Lohage <https://github.com/j2L4e/>
+// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+
 declare module '@feathersjs/authentication' {
   import { Hook } from '@feathersjs/feathers';
 

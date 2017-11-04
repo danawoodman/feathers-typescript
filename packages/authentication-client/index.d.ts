@@ -1,3 +1,8 @@
+// Type definitions for @feathersjs/authentication-client
+// Project: http://feathersjs.com/
+// Definitions by: Abraao Alves <https://github.com/AbraaoAlves/>, Jan Lohage <https://github.com/j2L4e/>
+// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+
 declare module '@feathersjs/authentication-client' {
   function feathersAuthClient(config?: FeathersAuthClientConfig): () => void;
 

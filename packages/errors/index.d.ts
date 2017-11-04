@@ -1,3 +1,8 @@
+// Type definitions for @feathersjs/errors
+// Project: http://feathersjs.com/
+// Definitions by: Daniel Constantin <https://github.com/daniel-constantin>, Barne Jürgensen <https://github.com/superbarne/>, Jan Lohage <https://github.com/j2L4e/>, Jérémy Virant <https://github.com/JVirant>
+// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+
 declare module '@feathersjs/errors' {
   export class FeathersError extends Error {
     constructor(msg: string | Error, name: string, code: number, className: String, data: any)

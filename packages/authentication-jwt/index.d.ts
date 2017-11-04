@@ -1,3 +1,8 @@
+// Type definitions for @feathersjs/authentication-jwt
+// Project: http://feathersjs.com/
+// Definitions by: Jan Lohage <https://github.com/j2L4e/>
+// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
+
 declare module '@feathersjs/authentication-jwt' {
   import { Application } from '@feathersjs/feathers';
   import { Request } from 'express';

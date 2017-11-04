@@ -1,4 +1,7 @@
-/// <reference types="node" />
+// Type definitions for @feathersjs/feathers
+// Project: http://feathersjs.com/
+// Definitions by: Abraao Alves <https://github.com/AbraaoAlves/>, Jan Lohage <https://github.com/j2L4e/>, David Lücke <https://github.com/daffl/>, also @TimMensch @cranesandcaff @Creiger @harish2704 @jansel369 @superbarne @asdacap on github
+// Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
 declare module '@feathersjs/feathers' {
   import { EventEmitter } from 'events';
