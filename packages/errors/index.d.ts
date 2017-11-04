@@ -1,69 +1,69 @@
 declare module '@feathersjs/errors' {
-  class FeathersError extends Error {
+  export class FeathersError extends Error {
     constructor(msg: string | Error, name: string, code: number, className: String, data: any)
   }
 
-  class BadRequest extends FeathersError {
+  export class BadRequest extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class NotAuthenticated extends FeathersError {
+  export class NotAuthenticated extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class PaymentError extends FeathersError {
+  export class PaymentError extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class Forbidden extends FeathersError {
+  export class Forbidden extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class NotFound extends FeathersError {
+  export class NotFound extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class MethodNotAllowed extends FeathersError {
+  export class MethodNotAllowed extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class NotAcceptable extends FeathersError {
+  export class NotAcceptable extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class Timeout extends FeathersError {
+  export class Timeout extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class Conflict extends FeathersError {
+  export class Conflict extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class LengthRequired extends FeathersError {
+  export class LengthRequired extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class Unprocessable extends FeathersError {
+  export class Unprocessable extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class TooManyRequests extends FeathersError {
+  export class TooManyRequests extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class GeneralError extends FeathersError {
+  export class GeneralError extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class NotImplemented extends FeathersError {
+  export class NotImplemented extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class BadGateway extends FeathersError {
+  export class BadGateway extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
-  class Unavailable extends FeathersError {
+  export class Unavailable extends FeathersError {
     constructor(msg: string | Error, data?: any);
   }
 
@@ -87,9 +87,9 @@ declare module '@feathersjs/errors' {
     Unavailable: Unavailable;
   }
 
-  function convert(error: any): FeathersError;
-  const types: Errors;
-  const errors: Errors;
+  export function convert(error: any): FeathersError;
+  export const types: Errors;
+  export const errors: Errors;
 }
 
 // todo: (JL) what's with the handlers now?

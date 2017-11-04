@@ -23,7 +23,7 @@ declare module '@feathersjs/authentication-jwt' {
     verify(req: Request, payload: any, done: (error: any, user?: any, info?: any) => void): void;
   }
 
-  interface JwtFromRequestFunction {
+  export interface JwtFromRequestFunction {
     (req: Request): string
   }
 

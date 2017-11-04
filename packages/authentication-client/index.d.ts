@@ -66,7 +66,7 @@ declare module '@feathersjs/feathers' {
     Passport
   } from '@feathersjs/authentication-client';
 
-  interface Application<ServiceTypes> {
+  export interface Application<ServiceTypes> {
     authenticate(options?: FeathersAuthCredentials): Promise<any>;
 
     logout(): Promise<void>;

@@ -3,9 +3,9 @@ declare module '@feathersjs/authentication' {
 
   export default function FeathersAuthentication(config?: FeathersAuthenticationOptions): () => void
 
-  const hooks: AuthHooks.Hooks;
+  export const hooks: AuthHooks.Hooks;
 
-  interface FeathersAuthenticationOptions {
+  export interface FeathersAuthenticationOptions {
     path?: string;
     header?: string;
     entity?: string;

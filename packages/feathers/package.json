@@ -4,11 +4,5 @@
   "main": "",
   "repository": "https://github.com/feathersjs/feathers-typescript.git",
   "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "@types/node": "^8.0.47"
-  },
-  "types": [
-    "./index.d.ts"
-  ]
+  "license": "MIT"
 }

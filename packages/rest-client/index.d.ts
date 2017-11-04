@@ -3,7 +3,7 @@
 declare module '@feathersjs/rest-client' {
   export default function (base: string): Transport;
 
-  interface HandlerResult extends Function {
+  export interface HandlerResult extends Function {
     /**
      * initialize service
      */
@@ -19,11 +19,11 @@ declare module '@feathersjs/rest-client' {
     service: any;
   }
 
-  interface Handler {
+  export interface Handler {
     (connection: any, options?: any): () => HandlerResult;
   }
 
-  interface Transport {
+  export interface Transport {
     jquery: Handler;
     superagent: Handler;
     request: Handler;

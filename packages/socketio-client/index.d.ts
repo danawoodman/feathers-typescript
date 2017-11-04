@@ -3,7 +3,7 @@
 declare module '@feathersjs/socketio/client' {
   export default function(socket: SocketIOClient.Socket, options?: FeathersSocketIOClientOptions): () => void
 
-  interface FeathersSocketIOClientOptions {
+  export interface FeathersSocketIOClientOptions {
     timeout?: number
   }
 }

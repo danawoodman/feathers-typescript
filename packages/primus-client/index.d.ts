@@ -3,7 +3,7 @@ declare module '@feathersjs/primus/client' {
 
   export default function (socket: Primus, options?: FeathersPrimusClientOptions): () => void
 
-  interface FeathersPrimusClientOptions {
+  export interface FeathersPrimusClientOptions {
     timeout?: number;
   }
 }

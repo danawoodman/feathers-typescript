@@ -3,50 +3,54 @@
 declare module '@feathersjs/feathers' {
   import { EventEmitter } from 'events';
 
-  export default function <DataTypes = {}>(): Application<DataTypes>;
+  function feathers<ServiceTypes = {}>(): Application<ServiceTypes>
+
+  export default feathers;
+
+  export const version: string;
 
   namespace _utils {
     // Mainly taken from here https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-319495340
 
     type StringDiff<T extends string, U extends string> = ({[K in T]: K} &
-      {[K in U]: never} & {[K: string]: never})[T];
+      {[K in U]: never} & { [K: string]: never })[T];
     type ObjectOmit<T, K extends keyof T> = Pick<T, StringDiff<keyof T, K>>;
 
     export type Optionalize<T, U> = ObjectOmit<T, U & keyof T> &
       {[K in (U & keyof T)]?: T[K]};
   }
 
-  type OptionalIDs<T> = _utils.Optionalize<T, 'id' | '_id'>
+  export type OptionalIDs<T> = _utils.Optionalize<T, 'id' | '_id'>
 
-  type Id = number | string;
-  type NullableId = Id | null;
-  type Query = { [key: string]: any };
+  export type Id = number | string;
+  export type NullableId = Id | null;
+  export type Query = { [key: string]: any };
 
-  interface PaginationOptions {
+  export interface PaginationOptions {
     default: number;
     max: number;
   }
 
-  type ClientSideParams = Pick<Params, 'query' | 'paginate'>
-  type ServerSideParams = Params;
+  export type ClientSideParams = Pick<Params, 'query' | 'paginate'>
+  export type ServerSideParams = Params;
 
-  interface Params {
+  export interface Params {
     query?: Query;
     paginate: false | Pick<PaginationOptions, 'max'>;
 
     [key: string]: any // (JL) not sure if we want this
   }
 
-  interface Paginated<T> {
+  export interface Paginated<T> {
     total: Number,
     limit: Number,
     skip: Number,
     data: T[]
   }
 
-  type Hook = <T>(hook: HookContext<T>) => (Promise<HookContext<T>> | void);
+  export type Hook = <T>(hook: HookContext<T>) => (Promise<HookContext<T>> | void);
 
-  interface HookContext<T> {
+  export interface HookContext<T> {
     app?: Application<any>;
     data?: T;
     error?: any;
@@ -55,11 +59,11 @@ declare module '@feathersjs/feathers' {
     params?: any;
     path?: string;
     result?: T;
-    service: Service<T, {}>;
+    service: Service<T>;
     type: 'before' | 'after' | 'error';
   }
 
-  interface HookMap {
+  export interface HookMap {
     all: Hook | Hook[];
     find: Hook | Hook[];
     get: Hook | Hook[];
@@ -69,35 +73,46 @@ declare module '@feathersjs/feathers' {
     remove: Hook | Hook[];
   }
 
-  interface HooksObject {
+  export interface HooksObject {
     before: Partial<HookMap>;
     after: Partial<HookMap>;
     error: Partial<HookMap>;
   }
 
-  interface ServiceCore<T> {
-    find?(params?: Params): Promise<T[] | Paginated<T>>;
-    get?(id: Id, params?: Params): Promise<T>;
-    create?(data: OptionalIDs<T> | OptionalIDs<T>[], params?: Params): Promise<T | T[]>
-    update?(id: NullableId, data: T, params?: Params): Promise<T>;
-    patch?(id: NullableId, data: Partial<T>, params?: any): Promise<T>;
-    remove?(id: NullableId, params?: Params): Promise<T>;
-    setup?(app?: Application<any>, path?: string): void;
+  // todo: figure out what to do: These methods don't actually need to be implemented, so they can be undefined at runtime. Yet making them optional gets cumbersome in strict mode.
+  export interface ServiceMethods<T> {
+    find(params?: Params): Promise<T[] | Paginated<T>>;
+
+    get(id: Id, params?: Params): Promise<T>;
+
+    create(data: OptionalIDs<T> | OptionalIDs<T>[], params?: Params): Promise<T | T[]>
+
+    update(id: NullableId, data: T, params?: Params): Promise<T>;
+
+    patch(id: NullableId, data: Partial<T>, params?: any): Promise<T>;
+
+    remove(id: NullableId, params?: Params): Promise<T>;
+  }
+
+  export interface SetupMethod {
+    setup(app?: Application<any>, path?: string): void;
   }
 
   interface ServiceOverloads<T> {
     create(data: OptionalIDs<T>[], params?: Params): Promise<T[]>;
+
     create(data: OptionalIDs<T>, params?: Params): Promise<T>;
+
     patch<K extends keyof T>(id: NullableId, data: Pick<T, K>, params?: any): Promise<T>;
   }
 
-  interface ServiceAddons<T, DataTypes> extends EventEmitter {
-    hooks(hooks: Partial<HooksObject>): Application<DataTypes>;
+  export interface ServiceAddons<T> extends EventEmitter {
+    hooks(hooks: Partial<HooksObject>): this;
   }
 
-  type Service<T, DataTypes = {}> = ServiceCore<T> & ServiceAddons<T, DataTypes> & ServiceOverloads<T>;
+  export type Service<T> = ServiceOverloads<T> & ServiceAddons<T> & ServiceMethods<T>;
 
-  interface Application<DataTypes> extends EventEmitter {
+  export interface Application<ServiceTypes> extends EventEmitter {
     get(name: string): any;
 
     set(name: string, value: any): this;
@@ -112,14 +127,16 @@ declare module '@feathersjs/feathers' {
 
     configure(callback: (this: this, app: this) => void): this;
 
+    hooks(hooks: Partial<HooksObject>): this;
+
     setup(server?: any): this;
 
-    service<L extends keyof DataTypes>(location: L): Service<DataTypes[L], DataTypes>;
+    service<L extends keyof ServiceTypes>(location: L): Service<ServiceTypes[L]>;
 
-    // service<L extends string>(location: L): FeathersService<any>;
-    // service<T>(location: string): FeathersService<T>;
-    service(location: string): Service<any, DataTypes>;
+    service<L extends string>(location: L): Service<any>;
 
-    use(path: string, service: Service<any, any> | Application<any>, options?: any): this;
+    use(path: string, service: Partial<ServiceMethods<any> & SetupMethod> | Application<any>, options?: any): this;
+
+    version: string;
   }
 }
