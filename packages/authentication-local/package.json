@@ -5,6 +5,8 @@
 	"repository": "https://github.com/feathersjs/feathers-typescript.git",
 	"author": "",
 	"license": "MIT",
-	"devDependencies": {
+	"devDependencies": {},
+	"dependencies": {
+		"@types/passport-local": "^1.0.32"
 	}
 }
