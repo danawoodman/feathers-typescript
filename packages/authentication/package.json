@@ -5,6 +5,5 @@
 	"repository": "https://github.com/feathersjs/feathers-typescript.git",
 	"author": "",
 	"license": "MIT",
-	"devDependencies": {
-	}
+	"devDependencies": {}
 }

@@ -4,7 +4,5 @@
 	"main": "index.js",
 	"repository": "https://github.com/feathersjs/feathers-typescript.git",
 	"author": "",
-	"license": "MIT",
-	"devDependencies": {
-	}
+	"license": "MIT"
 }
