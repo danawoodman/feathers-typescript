@@ -4,7 +4,7 @@
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
 
-declare module '@feathersjs/primus/client' {
+declare module '@feathersjs/primus-client' {
   import { Primus } from 'primus';
 
   export default function (socket: Primus, options?: FeathersPrimusClientOptions): () => void
