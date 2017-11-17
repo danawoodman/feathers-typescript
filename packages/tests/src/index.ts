@@ -1,22 +1,10 @@
-import feathers, {} from '@feathersjs/feathers';
-
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  age: number;
-}
-
-interface Message {
-  _id: string;
-  _id_sender: User['_id'],
-  text: string;
-}
-
-interface ServiceTypes {
-  users: User,
-  messages: Message
-}
+import feathers from '@feathersjs/feathers';
+import { ServiceTypes } from './interfaces';
+import { MyService } from './my-service';
 
 const app = feathers<ServiceTypes>();
+
+app.use('users', new MyService());
+
+app.service('users').get(0).then(u => console.log(u));
 
