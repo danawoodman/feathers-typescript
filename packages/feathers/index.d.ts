@@ -59,7 +59,7 @@ declare module '@feathersjs/feathers' {
     error?: any;
     id?: string | number;
     method?: string;
-    params?: any;
+    params?: Params;
     path?: string;
     result?: T;
     service: Service<T>;
@@ -92,13 +92,13 @@ declare module '@feathersjs/feathers' {
 
     update(id: NullableId, data: T, params?: Params): Promise<T>;
 
-    patch(id: NullableId, data: Partial<T>, params?: any): Promise<T>;
+    patch(id: NullableId, data: Partial<T>, params?: Params): Promise<T>;
 
     remove(id: NullableId, params?: Params): Promise<T>;
   }
 
   export interface SetupMethod {
-    setup(app?: Application<any>, path?: string): void;
+    setup(app: Application<any>, path: string): void;
   }
 
   interface ServiceOverloads<T> {
@@ -106,7 +106,7 @@ declare module '@feathersjs/feathers' {
 
     create(data: OptionalIDs<T>, params?: Params): Promise<T>;
 
-    patch<K extends keyof T>(id: NullableId, data: Pick<T, K>, params?: any): Promise<T>;
+    patch<K extends keyof T>(id: NullableId, data: Pick<T, K>, params?: Params): Promise<T>;
   }
 
   export interface ServiceAddons<T> extends EventEmitter {
@@ -138,6 +138,8 @@ declare module '@feathersjs/feathers' {
 
     service<L extends string>(location: L): Service<any>;
 
+    use(path: string, service: Partial<ServiceMethods<any> & SetupMethod>, options?: any): this;
+    use(path: string, service: Application<any>, options?: any): this;
     use(path: string, service: Partial<ServiceMethods<any> & SetupMethod> | Application<any>, options?: any): this;
 
     version: string;
