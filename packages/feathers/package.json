@@ -1,8 +1,0 @@
-{
-  "name": "@types/feathersjs__feathers",
-  "version": "1.0.0",
-  "main": "",
-  "repository": "https://github.com/feathersjs/feathers-typescript.git",
-  "author": "",
-  "license": "MIT"
-}
